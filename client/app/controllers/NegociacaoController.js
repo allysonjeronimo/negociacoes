@@ -11,7 +11,15 @@ class NegociacaoController {
 
     adiciona(event) {
         event.preventDefault()
+        
+        this._negociacoes.add(this._novaNegociacao())
 
+        console.log(this._negociacoes.toArray())
+
+        this._limparFormulario()
+    }
+
+    _novaNegociacao(){
         let data = DateConverter.toDate(this._inputData.value)
         let quantidade = this._inputQuantidade.value
         let valor = this._inputValor.value
@@ -21,11 +29,7 @@ class NegociacaoController {
             parseInt(quantidade),
             parseFloat(valor))
 
-        this._negociacoes.add(negociacao)
-
-        console.log(this._negociacoes.toArray())
-
-        this._limparFormulario()
+        return negociacao
     }
 
     _limparFormulario(){

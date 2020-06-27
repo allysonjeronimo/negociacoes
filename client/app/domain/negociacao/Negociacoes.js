@@ -9,6 +9,7 @@ class Negociacoes {
     }
 
     toArray(){
-        return this._negociacoes
+        // programação defenssiva (imutável)
+        return [].concat(this._negociacoes)
     }
 }
