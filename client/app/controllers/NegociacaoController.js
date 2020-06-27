@@ -6,21 +6,13 @@ class NegociacaoController {
         this._inputData = $('#data')
         this._inputQuantidade = $('#quantidade')
         this._inputValor = $('#valor')
+        this._negociacoes = new Negociacoes()
     }
 
     adiciona(event) {
         event.preventDefault()
 
-        //let data = new Date(this._inputData.value.split('-'))
-        //let data = new Date(this._inputData.value.replace(/-/g, ','))
-        // mes = 0..11
-        // index == 1 ? item-1 : item
-        // return item - index % 2
-        let data = new Date(
-            ...
-            this._inputData.value.split('-')
-            .map((item, index) => index - index % 2))
-
+        let data = DateConverter.toDate(this._inputData.value)
         let quantidade = this._inputQuantidade.value
         let valor = this._inputValor.value
 
@@ -29,8 +21,17 @@ class NegociacaoController {
             parseInt(quantidade),
             parseFloat(valor))
 
-        console.log(negociacao, data, quantidade, valor)
+        this._negociacoes.add(negociacao)
 
-        alert('NegociacaoController: adiciona()')
+        console.log(this._negociacoes.toArray())
+
+        this._limparFormulario()
+    }
+
+    _limparFormulario(){
+        this._inputData.value = ''
+        this._inputQuantidade.value = 1
+        this._inputValor.value = 0.0
+        this._inputData.focus()
     }
 }
