@@ -1,7 +1,7 @@
 class NegociacaoController {
 
     constructor() {
-        let $ = document.querySelector.bind(document)
+        const $ = document.querySelector.bind(document)
 
         this._inputData = $('#data')
         this._inputQuantidade = $('#quantidade')
@@ -31,11 +31,11 @@ class NegociacaoController {
     }
 
     _novaNegociacao(){
-        let data = DateConverter.toDate(this._inputData.value)
-        let quantidade = this._inputQuantidade.value
-        let valor = this._inputValor.value
+        const data = DateConverter.toDate(this._inputData.value)
+        const quantidade = this._inputQuantidade.value
+        const valor = this._inputValor.value
 
-        let negociacao = new Negociacao(
+        const negociacao = new Negociacao(
             data,
             parseInt(quantidade),
             parseFloat(valor))

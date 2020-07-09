@@ -12,4 +12,8 @@ class View{
             }, secondsToHide * 1000)
         }
     }
+
+    template(model){
+        throw new Error('O método template() deve ser implementado na classe filha.')
+    }
 }
