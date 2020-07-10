@@ -30,6 +30,13 @@ class NegociacaoController {
         this._limparFormulario()
     }
 
+    limpar(){
+        this._negociacoes.limpar()
+        this._mensagem.texto = 'Negociações apagadas com sucesso!'
+        this._negociacoesView.update(this._negociacoes)
+        this._mensagemView.update(this._mensagem)
+    }
+
     _novaNegociacao(){
         const data = DateConverter.toDate(this._inputData.value)
         const quantidade = this._inputQuantidade.value

@@ -13,6 +13,10 @@ class Negociacoes {
         return [].concat(this._negociacoes)
     }
 
+    limpar(){
+        this._negociacoes = []
+    }
+
     get volumeTotal(){
  
         let somatorio = function(total, atual){
