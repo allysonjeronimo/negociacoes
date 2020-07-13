@@ -1,14 +1,12 @@
 class Negociacoes {
 
-    constructor(updateCallback) {
+    constructor() {
         this._negociacoes = []
-        this._updateCallback = updateCallback
         Object.freeze(this)
     }
 
     add(negociacao) {
         this._negociacoes.push(negociacao)
-        this._updateCallback(this)
     }
 
     toArray(){
@@ -19,7 +17,6 @@ class Negociacoes {
     limpar(){
         //this._negociacoes = []
         this._negociacoes.length = 0
-        this._updateCallback(this)
     }
 
     get volumeTotal(){
