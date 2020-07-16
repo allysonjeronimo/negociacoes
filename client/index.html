@@ -60,12 +60,13 @@
 
 
     <script>
+        /*
         const negociacao = new Proxy(new Negociacao(new Date(), 2, 100), {
-            get(target, prop, receiver){
+            get(target, prop, receiver) {
                 console.log(`A propriedade ${prop} foi chamada.`)
                 return target[prop]
             },
-            set(target, prop, value, receiver){
+            set(target, prop, value, receiver) {
                 console.log(`A propriedade ${prop} possui o valor ${target[prop]}, receberá o valor: ${value}`)
                 // target[prop] = value
                 // ES6(2015) retorna true or false
@@ -75,10 +76,26 @@
             }
         })
 
-       // negociacao._quantidade = 4
-        //negociacao._valor = 200
-        console.log(negociacao.quantidade)
+        negociacao._quantidade = 4
+        negociacao._valor = 200
+        //console.log(negociacao.quantidade)
+        */
 
+        const negociacoes = new Proxy(new Negociacoes(), {
+            get(target, prop, receiver){
+                if(typeof(target[prop]) == typeof(Function) && ['add', 'limpar'].includes(prop)){
+                    return function(){
+                        console.log('Disparou armadilha')
+                        return target[prop].apply(target, arguments)
+                    }
+                }
+                else{
+                    return target[prop]
+                }
+            }
+        })
+
+        negociacoes.add(new Negociacao(new Date, 100, 1))
     </script>
 </body>
 
