@@ -12,8 +12,9 @@ class NegociacaoController {
         this._negociacoes = new Proxy(new Negociacoes(), {
             get(target, prop, receiver){
                 if(typeof(target[prop]) == typeof(Function) && ['add', 'limpar'].includes(prop)){
+                    // não funciona com arrow function
                     return function(){
-                        console.log(`${prop} disparou a armadilha.`)
+                        console.log(`${prop} disparou a armadilha`)
                         target[prop].apply(target, arguments)
                         self._negociacoesView.update(target)
                     }
