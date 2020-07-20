@@ -81,12 +81,15 @@
         //console.log(negociacao.quantidade)
         */
 
+        /*
         const negociacoes = new Proxy(new Negociacoes(), {
             get(target, prop, receiver){
                 if(typeof(target[prop]) == typeof(Function) && ['add', 'limpar'].includes(prop)){
+                    
                     return function(){
-                        console.log('Disparou armadilha')
-                        return target[prop].apply(target, arguments)
+                        console.log(target[prop])
+                        console.log('Disparou a armadilha!')
+                        target[prop].apply(target, arguments)
                     }
                 }
                 else{
@@ -96,6 +99,7 @@
         })
 
         negociacoes.add(new Negociacao(new Date, 100, 1))
+        */
     </script>
 </body>
 
