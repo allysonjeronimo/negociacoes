@@ -1,10 +1,14 @@
 class ProxyFactory{
 
+    static isFunction(fn){
+        return typeof(fn) == typeof(Function)
+    }
+
     static create(object, methods, callback){
 
         return new Proxy(object, {
             get(target, prop, receiver){
-                if(typeof(target[prop]) == typeof(Function) && methods.includes(prop)){
+                if(ProxyFactory.isFunction(target[prop]) && methods.includes(prop)){
                     return function(){
                         console.log(`${prop} disparou a armadilha`)
                         target[prop].apply(target, arguments)
@@ -16,20 +20,13 @@ class ProxyFactory{
                 }
             },
             set(target, prop, value, receiver){
-                if(typeof(target[prop]) == typeof(Function) && methods.includes(prop)){
-                    return function(){
-                        console.log(`${prop} disparou a armadilha`)
-                        Reflect.set(target, prop, value)
-                        callback(target)
-                        return target[prop] = value
-                    }
-                }
-                else{
-                    return Reflect.set(target, prop, value)
-                }
+                const updated = Reflect.set(target, prop, value)
+
+                if(methods.includes(prop))
+                    callback(target)
+                
+                return updated
             }
         })
-
     }
-
 }

@@ -7,45 +7,29 @@ class NegociacaoController {
         this._inputQuantidade = $('#quantidade')
         this._inputValor = $('#valor')
 
-        this._negociacoes = ProxyFactory.create(
+        this._negociacoes = new Bind(
             new Negociacoes(),
-            ['add', 'limpar'],
-            model => this._negociacoesView.update(model)
+            new NegociacoesView('#negociacoes'),
+            'add', 'limpar'
         )
 
-        this._negociacoesView = new NegociacoesView('#negociacoes')
-        this._negociacoesView.update(this._negociacoes)
-
-        this._mensagem = ProxyFactory.create(
+        this._mensagem = new Bind(
             new Mensagem(),
-            ['texto'],
-            model => this._mensagemView.update(model)
+            new MensagemView('#mensagemView'),
+            'texto'
         )
-
-        this._mensagemView = new MensagemView('#mensagemView')
-
-        this._mensagemView.update(this._mensagem)
     }
 
     adiciona(event) {
         event.preventDefault()
-        
         this._negociacoes.add(this._novaNegociacao())
-
         this._mensagem.texto = 'Negociação adicionada com sucesso!'
-
-        //this._negociacoesView.update(this._negociacoes)
-
-        //this._mensagemView.update(this._mensagem, 3)
-
         this._limparFormulario()
     }
 
     limpar(){
         this._negociacoes.limpar()
         this._mensagem.texto = 'Negociações apagadas com sucesso!'
-        //this._negociacoesView.update(this._negociacoes)
-        //this._mensagemView.update(this._mensagem)
     }
 
     _novaNegociacao(){
